@@ -1,0 +1,39 @@
+{
+  "name": "AIEngineer",
+  "dockerFile": "dockerfile",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces,type=bind,consistency=delegated",
+  "workspaceFolder": "/workspaces",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {} // Enable Docker in Docker for building images
+  },
+  "mounts": [
+   // "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached", // Mount SSH keys for Git access
+    "source=${localEnv:HOME}/.config/gh,target=/root/.config/gh,type=bind,consistency=cached" // Mount gh CLI config for persistent auth
+  ],
+  "containerEnv": {
+    "INSTALL_AZURECLI": "false",
+    "INSTALL_AWSCLI": "false",
+    "INSTALL_KUBECTL": "false",
+    "INSTALL_HELM": "false",
+    "INSTALL_TERRAFORM": "false",
+    "TERRAFORM_VERSION": "1.8.1*",
+    "INSTALL_TERRAGRUNT": "false",
+    "TERRAGRUNT_VERSION": "v0.77.17",
+    "INSTALL_GH": "false",
+    "INSTALL_OPENCODE": "false",
+    "INSTALL_OPENSPEC": "false",
+    "INSTALL_KIND": "false"
+  },
+  //"postCreateCommand": "find /workspaces/.devcontainer -type f -name '*.sh' -exec sed -i 's/\\r$//' {} +  && bash /workspaces/.devcontainer/script/post-create.sh",
+  "postCreateCommand": "bash /workspaces/.devcontainer/script/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "ms-vscode-remote.remote-containers",
+        "GitHub.copilot-chat"
+      ]
+    }
+  }
+}
