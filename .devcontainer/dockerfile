@@ -1,0 +1,31 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instalar herramientas básicas
+RUN apt-get update && \
+    apt-get install -y \
+    ssh \
+    curl \
+    wget \
+    zip \
+    vim \
+    less \
+    gnupg \
+    software-properties-common \
+    watch \
+    netcat-traditional \
+    iproute2 \
+    jq \
+    yq \
+    iputils-ping \
+    apt-utils \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /workspaces
+
+
+# Mantener el contenedor activo
+CMD ["sleep", "infinity"]
